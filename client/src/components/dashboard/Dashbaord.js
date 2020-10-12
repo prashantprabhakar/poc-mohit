@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Todos from './../todos/Todos';
 import BarCharts from '../stats/MonthlyStats'
+import NotificationBar from '../common/Notification'
+
 
 const Dashbaord = (props) => {
 

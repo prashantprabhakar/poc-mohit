@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { signupAction } from './../../store/actions/auth.action'
-import handleRequest from './../../services/http.service'
 
 
 /**
@@ -13,11 +12,9 @@ const Signup = (props) => {
   let [state, setState] =  useState({
     name: '',
     email:  '',
-    password: ''
+    password: '',
+    phone: '',
   })
-
-  let [err, setErr] = useState('')
-  let [successMsg, setSuccessMsg] = useState('')
 
   // Redirect to "/"" if logged in
   if(props.user) return <Redirect to='/' />
@@ -26,15 +23,17 @@ const Signup = (props) => {
     setState({ ...state,  [e.target.name] : e.target.value })
   }
 
+  function hanldePhoneChange(e) {
+    let val = e.target.value;
+    if(val == '') setState({...state, phone: val})
+    if(!val.length) return
+    let lastTyped = val[val.length-1]
+    if(![0,1,2,3,4,5,6,7,8,9].includes(+lastTyped)) return
+    setState({...state, phone: val})
+  }
+
   async function handleSumbit() {
-    let url = '/signup'
-    let resp = await handleRequest('POST', url, state)
-    console.log(resp)
-    if(resp.success) {
-      setSuccessMsg(resp.message)
-    } else {
-      setErr(resp.err)
-    }
+   props.submitSignup(state)
   }
 
 
@@ -51,18 +50,17 @@ const Signup = (props) => {
           <input type="email" id="email" name='email' value={state.email} onChange={handleChange} />
         </div>
         <div className="input-field">
+          <label htmlFor="phone"> Phone </label>
+          <input type="text" id="phone" name='phone' value={state.phone} onChange={hanldePhoneChange} />
+        </div>
+        <div className="input-field">
           <label htmlFor="password"> Password </label>
           <input type="password" id="password" name='password' value={state.password} onChange={handleChange} />
         </div>
         <div className="input-field">
           <button type="button" className="btn pink lighten-1 z-depth-0" onClick={handleSumbit}> Signup </button>
         </div>
-        <div className="red-text center">
-          {err ? <p>{err}</p> : null}
-        </div>
-        <div className="green-text center">
-          {successMsg ? <p>{successMsg}</p> : null}
-        </div>
+        
       </form>
     </div>
   )
@@ -74,13 +72,10 @@ const mapStateToProps =  (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    submitSignup: (newUser) => {
-      dispatch(signupAction(newUser))
-    }
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  submitSignup: (newUser) => dispatch(signupAction(newUser))
+})
+
 
 
 

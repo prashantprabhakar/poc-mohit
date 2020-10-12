@@ -57,7 +57,7 @@ const BarCharts = ({selectedSubMenu}) => {
    return (
     <div className="section project-details">
 
-        <h4> {selectedSubMenu}</h4>
+        <h4> {selectedSubMenu} {startDate} { endDate}</h4>
 
         <div className="row">
             <div className="col s2">
@@ -83,6 +83,8 @@ const BarCharts = ({selectedSubMenu}) => {
                             <option value={3}> Last 3 months</option>
                         </select> :
                         <>
+                            <input type= "date" className="datepicker" onChange={(e) => setStartDate(e.target.value)} />
+                            <input type= "date" className="datepicker" onChange={(e) => setEndDate(e.target.value)} />
                             {/* <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
                             <DatePicker selected={endDate} onChange={date => setEndDate(date)} /> */}
                         </>

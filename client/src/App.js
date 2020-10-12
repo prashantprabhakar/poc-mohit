@@ -9,6 +9,8 @@ import ListTodos from './components/todos/ListTodos'
 import NotFound from './components/layout/Notfound'
 
 import BarCharts from './components/stats/MonthlyStats'
+import NotificationBar from './components/common/Notification'
+
 import  { connect } from 'react-redux'
 
 function App(props) {
@@ -30,9 +32,16 @@ function App(props) {
           <Route component={NotFound} />
         </Switch>
       </div>
+      {
+        props.notification && props.notification.msg && <NotificationBar notification={props.notification} />
+      }
     </BrowserRouter>
   );
 }
+
+const mapStateToProps = (state) => ({
+  notification: state.notifications.notification
+})
 
 const mapDispatchToProps = (dispatch) => {
   let user = localStorage.getItem('user')
@@ -42,4 +51,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
