@@ -1,0 +1,45 @@
+
+html, body { 
+  height:100%; 
+  width: 100%;
+  display: block;
+}
+
+
+.skulltop, .skullbottom {
+      position: relative;
+      margin: 0 auto;
+    top: 100px;
+    background:url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/127764/skull.gif");
+      background-size: contain;
+      background-repeat: no-repeat;
+ }
+
+
+.skullbottom { 
+      height: 330px;
+      width: 330px;
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+			background-blend-mode: luminosity;
+		}
+
+.skulltop{   	
+      height: 336px;
+      width: 336px;
+      opacity: .3;
+      top: -4px;
+      left: -3px;
+			background-blend-mode: multiply;
+			background-repeat: no-repeat;
+			-webkit-transform:translateZ(100px);
+			transform:translateZ(100px);
+		}		
+
+
+
+
+
+
+
+
