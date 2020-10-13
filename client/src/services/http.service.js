@@ -9,14 +9,18 @@ const handleRequest = async(methodType, url, data, config) => {
       let resp = await axios.get(url, config)
       return await handleResponse(resp)
     } catch (e) {
-      console.log(e)
+      throw e;
     }
   }
   else if (methodType === 'POST') {
 
     console.log(data)
-    let resp = await axios.post(url, data, config)
-    return await handleResponse(resp)
+    try{
+      let resp = await axios.post(url, data, config)
+      return await handleResponse(resp)
+    } catch (e) {
+      throw e;
+    }
   }
 }
 

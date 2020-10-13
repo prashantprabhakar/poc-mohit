@@ -1,4 +1,5 @@
 import handleRequest from '../../services/http.service'
+import history from "../../components/history";
 
 export const signupAction = (newUser) => {
   console.log(newUser)
@@ -6,10 +7,11 @@ export const signupAction = (newUser) => {
     try {
       let url = '/signup'
       let resp = await handleRequest('POST', url, newUser)
+      console.log("=========", {resp});
       if(!resp || !resp.success) dispatch({type: 'SHOW_NOTFICATION', notification: {isError: true, msg: resp.error || 'Error in signup'}})
       else  {
         dispatch({type: 'SHOW_NOTFICATION', notification: {isError: false, msg: 'Signup successful'}})
-        // @todo: redirect to login here
+        history.push('/login')
       }
      
     } catch(error) {
@@ -24,6 +26,8 @@ export const loginAction = (creds) => {
     try {
       let url = '/login'
       let resp = await handleRequest('POST', url, creds)
+      console.log("=========", {resp});
+      
       if(!resp || !resp.success) {
         dispatch({type: 'SHOW_NOTFICATION', notification: {isError: true, msg: resp.error || 'Error in login'}})
       }

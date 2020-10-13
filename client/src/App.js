@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route } from 'react-router-dom' 
+import {Router, Switch, Route } from 'react-router-dom' 
 import './App.css'
 import Navbar from './components/layout/Navbar'
 import Signup from './components/auth/signup'
@@ -12,14 +12,16 @@ import BarCharts from './components/stats/MonthlyStats'
 import NotificationBar from './components/common/Notification'
 
 import  { connect } from 'react-redux'
+import history from './components/history';
 
 function App(props) {
 
   props.setUser()
+  props.notification && props.notification.msg && NotificationBar({notification : props.notification});
 
   return (
 
-    <BrowserRouter>
+    <Router history={history}>
       <div className="App">
         <Navbar />
         <Switch>
@@ -32,10 +34,7 @@ function App(props) {
           <Route component={NotFound} />
         </Switch>
       </div>
-      {
-        props.notification && props.notification.msg && <NotificationBar notification={props.notification} />
-      }
-    </BrowserRouter>
+    </Router>
   );
 }
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,13 +16,9 @@ function NotificationBar(props) {
   }
 
   return (
-    <div className='toast-ms'>
-      {
           props.notification.isError ?
           toast.error(props.notification.msg, msgConfig):
           toast.success(props.notification.msg, msgConfig)
-      }
-    </div>
   )
 }
 
