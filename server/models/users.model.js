@@ -13,6 +13,8 @@ const usersSchema = new mongoose.Schema({
   state: String,
   zip: String,
   initials: String,
+  subscribed_to_mails: Boolean,
+  accepted_tnc: Boolean,
   crtd: { type: Date, default: Date.now }
 })
 

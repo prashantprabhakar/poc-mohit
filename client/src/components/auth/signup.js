@@ -21,6 +21,8 @@ const Signup = (props) => {
     zip: '',
     email:  '',
     password: '',
+    subscribed_to_mails: true,
+    accepted_tnc: true,
   })
 
   // Redirect to "/"" if logged in
@@ -39,6 +41,10 @@ const Signup = (props) => {
     setState({...state, [e.target.name]: val})
   }
 
+  const handleCheckbox = (e) => {
+    setState({...state, [e.target.name]: e.target.checked})
+  }
+
   async function handleSumbit() {
    props.submitSignup(state)
   }
@@ -47,7 +53,7 @@ const Signup = (props) => {
   return (
     <div className="container">
       <form className="white">
-        <h5 className="grye-text"> SignUp </h5>
+        <h5 className="grye-text"> SignUp {state.subscribed_to_mails} </h5>
         <div className="input-field">
           <label htmlFor="fname"> First Name </label>
           <input type="text" id="fName" name='fName' value={state.name} onChange={handleChange} />
@@ -92,6 +98,22 @@ const Signup = (props) => {
         <div className="input-field">
           <label htmlFor="password"> Password </label>
           <input type="password" id="password" name='password' value={state.password} onChange={handleChange} />
+        </div>
+        <div className="input-field">
+          <p>
+            <label htmlFor="subscribed_to_mails">
+              <input id="subscribed_to_mails" type="checkbox" checked={state.subscribed_to_mails} name="subscribed_to_mails" onChange={() => setState({...state, subscribed_to_mails: !state.subscribed_to_mails})}/>
+              <span> I agree to recieve marketting emails </span>
+            </label>
+          </p>
+        </div>
+        <div className="input-field">
+          <p>
+            <label htmlFor="accepted_tnc">
+              <input id="accepted_tnc" type="checkbox" checked={state.accepted_tnc} name="accepted_tnc" onChange={() => setState({...state, accepted_tnc: !state.accepted_tnc})}/>
+              <span> I agree to all terms and conditions </span>
+            </label>
+          </p>
         </div>
         <div className="input-field">
           <button type="button" className="btn pink lighten-1 z-depth-0" onClick={handleSumbit}> Signup </button>
