@@ -11,12 +11,12 @@ const UserModel = require('./../../models/users.model')
 
 router.post('/', async (req, res) => {
   console.log('login post route was hit')
-  let { email, password } = req.body
-  if (!email || !password) {
+  let { email: username, password } = req.body
+  if (!username || !password) {
     return handleResponse(res, 200, 'Missing params')
   }
 
-  let user = await UserModel.findOne({email, password}).select({ password: -1, crtd: -1 })
+  let user = await UserModel.findOne({$or: [{email: username}, { phone: username}], password}).select({ password: -1, crtd: -1 })
   if(!user) {
     return handleResponse(res, 404, 'Invalid credentials')
   }

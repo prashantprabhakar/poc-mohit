@@ -10,10 +10,17 @@ import { signupAction } from './../../store/actions/auth.action'
 const Signup = (props) => {
 
   let [state, setState] =  useState({
-    name: '',
+    fName: '',
+    lName: '',
+    phone: '',
+    address1: '',
+    address2: '',
+    aptNo: '',
+    city: '',
+    state: '',
+    zip: '',
     email:  '',
     password: '',
-    phone: '',
   })
 
   // Redirect to "/"" if logged in
@@ -23,13 +30,13 @@ const Signup = (props) => {
     setState({ ...state,  [e.target.name] : e.target.value })
   }
 
-  function hanldePhoneChange(e) {
+  function handleNumericField(e) {
     let val = e.target.value;
-    if(val == '') setState({...state, phone: val})
+    if(val == '') setState({...state, [e.target.name]: val})
     if(!val.length) return
     let lastTyped = val[val.length-1]
     if(![0,1,2,3,4,5,6,7,8,9].includes(+lastTyped)) return
-    setState({...state, phone: val})
+    setState({...state, [e.target.name]: val})
   }
 
   async function handleSumbit() {
@@ -42,17 +49,46 @@ const Signup = (props) => {
       <form className="white">
         <h5 className="grye-text"> SignUp </h5>
         <div className="input-field">
-          <label htmlFor="name"> Name </label>
-          <input type="text" id="name" name='name' value={state.name} onChange={handleChange} />
+          <label htmlFor="fname"> First Name </label>
+          <input type="text" id="fName" name='fName' value={state.name} onChange={handleChange} />
+        </div>
+        <div className="input-field">
+          <label htmlFor="lName"> Last Name </label>
+          <input type="text" id="lName" name='lName' value={state.name} onChange={handleChange} />
+        </div>
+        <div className="input-field">
+          <label htmlFor="phone"> Phone </label>
+          <input type="text" id="phone" name='phone' value={state.phone} onChange={handleNumericField} />
+        </div>
+        <div className="input-field">
+          <label htmlFor="address1"> Address Line 1 </label>
+          <input type="text" id="address1" name='address1' value={state.address1} onChange={handleChange} />
+        </div>
+        <div className="input-field">
+          <label htmlFor="address2"> Address Line 2 </label>
+          <input type="text" id="address2" name='address2' value={state.address2} onChange={handleChange} />
+        </div>
+        <div className="input-field">
+          <label htmlFor="aptNo"> Apt No (Optional) </label>
+          <input type="text" id="aptNo" name='aptNo' value={state.aptNo} onChange={handleChange} />
+        </div>
+        <div className="input-field">
+          <label htmlFor="city"> City </label>
+          <input type="text" id="city" name='city' value={state.city} onChange={handleChange} />
+        </div>
+        <div className="input-field">
+          <label htmlFor="state"> State </label>
+          <input type="text" id="state" name='state' value={state.state} onChange={handleChange} />
+        </div>
+        <div className="input-field">
+          <label htmlFor="zip"> Zip </label>
+          <input type="text" id="zip" name='zip' value={state.zip} onChange={handleNumericField} />
         </div>
         <div className="input-field">
           <label htmlFor="email"> Email </label>
           <input type="email" id="email" name='email' value={state.email} onChange={handleChange} />
         </div>
-        <div className="input-field">
-          <label htmlFor="phone"> Phone </label>
-          <input type="text" id="phone" name='phone' value={state.phone} onChange={hanldePhoneChange} />
-        </div>
+        
         <div className="input-field">
           <label htmlFor="password"> Password </label>
           <input type="password" id="password" name='password' value={state.password} onChange={handleChange} />

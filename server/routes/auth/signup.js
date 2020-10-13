@@ -9,25 +9,31 @@ const UserModel = require('./../../models/users.model')
 
 router.post('/', async (req, res) => {
   console.log('signup post route was hit')
-  let { name, email, password } = req.body
-  console.log({ name, email, password })
-  if (!name || !email || !password) {
-    return handleResponse(res, 404, 'Missing params')
+  let { fName, lName, address1, address2, city, state, zip, aptNo, email, phone, password } = req.body
+  if (!fName || !address1 || !email || !password || !phone) {
+    return handleResponse(res, 400, 'Missing params')
   }
 
-  let existingUser = await UserModel.findOne({ email })
+  let existingUser = await UserModel.findOne({ $or: [{email}, {phone}] })
   if(existingUser) {
-    return handleResponse(res, 404, 'User already exists')
+    return handleResponse(res, 400, 'User with given mail/phone already exists')
   }
 
   
-  let initials = name[0]+name[1]
+  let initials = getInitials(fName, lName)
   await new UserModel({
-    email, name, password, initials
+    fName, lName, address1, address2, city, state, zip, aptNo, email, phone, password, initials
   }).save()
 
   return handleResponse(res,201, 'Signup successful')
 
 })
+
+const getInitials = (fName, lName) => {
+  let initials = fName[0]
+  if(lName) initials += lName[0]
+  else if(fName.length>1) initials += fName[1]
+  return initials
+}
 
 module.exports = router
