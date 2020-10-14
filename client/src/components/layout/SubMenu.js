@@ -8,6 +8,7 @@ const submenus = [
     { name: 'View Usage'},
     { name: 'Ways to conserve'},
     { name: 'Assistance Programms'},
+    { name: 'Profile'},
 ]
 
 const SubMenu = ({selectedSubMenu, updateSubMenu}) => {

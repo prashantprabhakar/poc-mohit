@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import DatePicker from "react-datepicker";
-
+import Profile from './../profile'
 
 import {
     BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
@@ -54,10 +53,10 @@ const BarCharts = ({selectedSubMenu}) => {
     }, [noOfMonths, enType, view])
 
 
-   return (
+    return (
     <div className="section project-details">
 
-        <h4> {selectedSubMenu} {startDate} { endDate}</h4>
+        <h4> {selectedSubMenu}</h4>
 
         <div className="row">
             <div className="col s2">
